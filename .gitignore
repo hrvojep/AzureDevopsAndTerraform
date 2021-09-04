@@ -40,4 +40,6 @@ msbuild.wrn
 *.so
 
 # Terraform
-.terraform
+.terraform/*
+.terraform.*
+terraform.*
