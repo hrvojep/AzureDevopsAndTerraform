@@ -2,11 +2,26 @@ provider "azurerm" {
     features {}
 }
 
+terraform {
+    backend "azurerm" {
+        resource_group_name  = "tfmainrg-storage-account-h"
+        storage_account_name = "tfmainrgstorageaccounth"
+        container_name       = "tfstate"
+        key                  = "terraform.tfstate"
+    }
+}
 
 resource "azurerm_resource_group" "tf_test" {
   name = "tfmainrg-h"
   location = "australiaeast"
 }
+
+variable "imagebuild" {
+  type        = string
+  description = "Latest Image Build"
+}
+
+
 
 resource "azurerm_container_group" "tfcg_test" {
   name                      = "weatherapi"
@@ -19,7 +34,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
   container {
       name            = "weatherapi"
-      image           = "hrvoje/weatherapi"
+      image           = "hrvoje/weatherapi:${var.imagebuild}"
         cpu             = "1"
         memory          = "1"
 
