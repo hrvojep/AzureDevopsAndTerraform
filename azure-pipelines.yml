@@ -41,6 +41,7 @@ stages:
     steps:
     - script: |
         set -e
+        terraform init -input=false
         terraform destroy -input=false -auto-approve
       name: 'RunTerraform'
       displayName: 'Run Terraform'
